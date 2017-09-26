@@ -21,21 +21,22 @@
 DOCUMENT();        # This should be the first executable line in the problem.
 
 loadMacros(
-"PG.pl",
-"PGbasicmacros.pl",
-"PGchoicemacros.pl",
-"PGanswermacros.pl",
-"PGauxiliaryFunctions.pl"
+  "PGstandard.pl",
+  "PGchoicemacros.pl",
+  "logicMacros.pl",
+  "PGcourse.pl"
 );
 
 TEXT(beginproblem());
 $showPartialCorrectAnswers = 0;
 
+$neg = negate();
+
 @header=("\( p \)","\( q \)",
-"\( \lnot p \)",
+"\(  $neg p \)",
 "\( p \vee q \)",
-"\( \lnot p \wedge (p \vee q) \)",
-"\( [ \lnot p \wedge (p \vee q) ] \rightarrow q \)");
+"\(  $neg p \wedge (p \vee q) \)",
+"\( [  $neg p \wedge (p \vee q) ] \rightarrow q \)");
 
 # evaluate the tex commands in the header
 @header = map {EV2($_) } @header;
@@ -103,4 +104,5 @@ END_TEXT
 
 ANS(checkbox_cmp( $cmc -> correct_ans ) );
 
+COMMENT("Logical symbols defined in logicMacros.pl are used in this problem. They can be overwritten by placing a copy of logicMacros.pl in the course directory and modifying the subroutines in that file.");
 ENDDOCUMENT();        # This should be the last executable line in the problem.;

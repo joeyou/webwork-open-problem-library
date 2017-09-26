@@ -22,7 +22,8 @@ DOCUMENT(); # This should be the first executable line in the problem.
 loadMacros(
   "PGstandard.pl",
   "MathObjects.pl",
-  "bizarroArithmetic.pl"
+  "bizarroArithmetic.pl",
+  "PGcourse.pl"
 );
 
 TEXT(beginproblem());
@@ -77,7 +78,8 @@ ANS($answer -> cmp(
       $student = Formula("$student"); $correct = Formula("$correct");
       return 0 unless ($correct == $student);
       Context()->flags->set(bizarroDiv=>1);
-      delete $correct->{test_values}, $student->{test_values};
+      delete $correct->{test_values};
+      delete $student->{test_values};
       $student = Formula("$student"); $correct = Formula("$correct");
       my $OK = ($correct == $student);
       Context()->flags->set(bizarroDiv=>0);
